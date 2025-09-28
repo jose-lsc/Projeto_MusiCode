@@ -1,10 +1,13 @@
+
 class AFD:
-    def __init__(self, estados, estado_inicial, estados_finais, transicoes):
-        self.estados = estados
-        self.estados = estados
-        self.estado_inicial = estado_inicial
-        self.estados_finais = estados_finais
-        self.transicoes = transicoes
+    def __init__(self):
+        self.estados = {'q0', 'q1'}
+        self.estado_inicial = 'q0'
+        self.estados_finais = {'q1'}  
+        self.transicoes =  {
+            'q0': {';': 'q1'},
+            'q1': {},  
+        }
 
     def processar(self, entrada):
         estado_atual = self.estado_inicial
@@ -24,7 +27,7 @@ transicoes = {
     'q1': {},  
 }
 
-afd = AFD(estados, estado_inicial, estados_finais, transicoes)
+afd = AFD()
 
 # Testes Unitarios
 entrada_1 = '";"'
@@ -32,11 +35,9 @@ entrada_2 = ';'
 entrada_3 = "abcd;"
 entrada_4 = '"er;ro' 
 entrada_5 = 'isso  ;;   não é uma string'  
-
-print(f"Entrada: {entrada_1} -> Aceito? {afd.processar(entrada_1)}")  
-print(f"Entrada: {entrada_2} -> Aceito? {afd.processar(entrada_2)}")  
-print(f"Entrada: {entrada_3} -> Aceito? {afd.processar(entrada_3)}")  
-print(f"Entrada: {entrada_4} -> Aceito? {afd.processar(entrada_4)}")
-print(f"Entrada: {entrada_5} -> Aceito? {afd.processar(entrada_5)}")
-
-
+if __name__ == "__main__":
+    print(f"Entrada: {entrada_1} -> Aceito? {afd.processar(entrada_1)}")  
+    print(f"Entrada: {entrada_2} -> Aceito? {afd.processar(entrada_2)}")  
+    print(f"Entrada: {entrada_3} -> Aceito? {afd.processar(entrada_3)}")  
+    print(f"Entrada: {entrada_4} -> Aceito? {afd.processar(entrada_4)}")
+    print(f"Entrada: {entrada_5} -> Aceito? {afd.processar('instrumento();')}")

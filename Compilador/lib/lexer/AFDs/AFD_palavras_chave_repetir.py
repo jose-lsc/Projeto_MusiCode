@@ -1,9 +1,19 @@
 class AFD:
-    def __init__(self, estados, estado_inicial, estados_finais, transicoes):
-        self.estados = estados
-        self.estado_inicial = estado_inicial
-        self.estados_finais = estados_finais
-        self.transicoes = transicoes
+    def __init__(self):
+        self.estados = {'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6','q7', 'q8', 'q9'}
+        self.estado_inicial = 'q0'
+        self.estados_finais = {'q9'}
+        self.transicoes = {
+            'q0': {'r': 'q1'},         
+            'q1': {'e': 'q2'},         
+            'q2': {'p': 'q3'},         
+            'q3': {'e': 'q4'},  
+            'q4': {'t': 'q5'}, 
+            'q5': {'i': 'q6'}, 
+            'q6': {'r': 'q7'},
+            'q7': {'(': 'q8'},
+            'q8': {')': 'q9'},
+        }
 
     def processar(self, entrada) -> bool:
         
@@ -12,7 +22,7 @@ class AFD:
 
         estado_atual = self.estado_inicial
         for simbolo in entrada:
-            if simbolo != '}' and estado_atual == "q8":
+            if simbolo != ')' and estado_atual == "q8":
                 continue
             if simbolo not in self.transicoes.get(estado_atual, {}) and estado_atual != "q5":
                 return False
@@ -33,11 +43,11 @@ transicoes = {
     'q4': {'t': 'q5'}, 
     'q5': {'i': 'q6'}, 
     'q6': {'r': 'q7'},
-    'q7': {'{': 'q8'},
-    'q8': {'}': 'q9'},
+    'q7': {'(': 'q8'},
+    'q8': {')': 'q9'},
 }
 
-afd = AFD(estados, estado_inicial, estados_finais, transicoes)
+afd = AFD()
 
 # Testes Unitarios
 entradas = [
@@ -50,5 +60,6 @@ entradas = [
     '"repetir{}"',        
 ]
 
-for ent in entradas:
-    print(f"{ent!r}: {afd.processar(ent)}")
+if __name__ == "__main__":
+    for ent in entradas:
+        print(f"{ent!r}: {afd.processar(ent)}")

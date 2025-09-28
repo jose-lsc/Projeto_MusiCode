@@ -1,9 +1,16 @@
 class AFD:
-    def __init__(self, estados, estado_inicial, estados_finais, transicoes):
-        self.estados = estados
-        self.estado_inicial = estado_inicial
-        self.estados_finais = estados_finais
-        self.transicoes = transicoes
+    def __init__(self):
+        self.estados = {'q0', 'q1', 'q2', 'q3'}
+        self.estado_inicial = 'q0'
+        self.estados_finais =  {'q3'}
+        digitos = [str(d) for d in range(10)]
+        self.transicoes = {
+            'q0': {d: 'q1' for d in digitos},     
+            'q1': {d: 'q1' for d in digitos},     
+        }
+        self.transicoes['q1']['.'] = 'q2'
+        self.transicoes["q2"] = {d: 'q3' for d in digitos}
+        self.transicoes["q3"] = {d: 'q3' for d in digitos}
 
     def processar(self, entrada: str) -> bool:
         estado_atual = self.estado_inicial
@@ -27,9 +34,10 @@ transicoes['q1']['.'] = 'q2'
 transicoes["q2"] = {d: 'q3' for d in digitos}
 transicoes["q3"] = {d: 'q3' for d in digitos}
 
-afd = AFD(estados, estado_inicial, estados_finais, transicoes)
+afd = AFD()
 
-# Testes Unitarios
-entradas = ["", "12345", "abc", '"erro', "0.56", "00.7", "12.a", "12.3"]
-for ent in entradas:
-    print(f"{ent!r}: {afd.processar(ent)}")
+if __name__ == "__main__":
+    # Testes Unitarios
+    entradas = ["", "12345", "abc", '"erro', "0.56", "00.7", "12.a", "12.3"]
+    for ent in entradas:
+        print(f"{ent!r}: {afd.processar(ent)}")
