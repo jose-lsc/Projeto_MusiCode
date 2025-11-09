@@ -80,22 +80,12 @@ class Lexer:
                         # Remove a palavra 'play' do início do token
                         #conteudo_play = token[len("play{"):-1].strip()
 
-                        resultado.append({"token": "play{}", "tipo": "Palavra_Chave_Play"})
+                        resultado.insert(0, {"status" : True, "token": "play{}", "tipo_token": "Palavra_Chave_Play"})
 
                         # # Agora tokenizar o conteúdo dentro do play
                         # # Aqui vamos dividir por espaços e símbolos simples
                         # sub_tokens = self.split_tokens(conteudo_play)
                         
-                        # for t in sub_tokens:
-                        #     retornoAFD = self.classificar_token(t)
-                        #     if retornoAFD["status"] == False:
-                        #         resultado.append({
-                        #             "Erro": "O código sempre deve começar e finalizar com o bloco play{}\n",
-                        #             "linha" : linha,
-                        #             "coluna" : coluna,
-                        #             "token": token, 
-                        #         })
-                        #     resultado.append(retornoAFD)
                         tokensInternos = ""
                         dentro_play = False
                     # else ainda dentro do bloco, continua
@@ -113,7 +103,7 @@ class Lexer:
                 if input_text[i:i+5] == "play{":
                     dentro_play = True
                     brace_count = 1
-                    token = "play{"
+                    token = ""
                     i += 5
                     coluna += 5
                     continue
@@ -151,8 +141,6 @@ play{
     nota(A2);
     nota(B4);
     stop();
-
-    "nota()"
 }
 """
 
