@@ -10,7 +10,8 @@
 # Palavra_Chave_Stop - 9
 # Palavra_Chave_Ponto_Virgula - 10
 
-from estado_base import estado_base
+#from estado_base import estado_base
+from Compilador.lib.lexer.estado_base import estado_base
 
 class AFD:
     def __init__(self):
@@ -188,18 +189,18 @@ class AFD:
                     "tipo_token": estado_obj.tipo_token
                 }
 
-afd = AFD()
+# afd = AFD()
 
-# Testes Unitarios
-entrada_1 = 'play{' \
-'nota(A2)}'
-entrada_2 = 'instrumento(violao)'
-entrada_3 = 'stop()'
-entrada_4 = 'stop(9)' 
-entrada_5 = 'isso  ;;   não é uma string'  
-if __name__ == "__main__":
-    print(f"Entrada: {entrada_1} -> Aceito? {afd.processar(entrada_1)}")  
-    print(f"Entrada: {entrada_2} -> Aceito? {afd.processar(entrada_2)}")  
-    print(f"Entrada: {entrada_3} -> Aceito? {afd.processar(entrada_3)}")  
-    print(f"Entrada: {entrada_4} -> Aceito? {afd.processar(entrada_4)}")
-    print(f"Entrada: {entrada_5} -> Aceito? {afd.processar('instrumento();')}")
+# # Testes Unitarios
+# entrada_1 = 'play{' \
+# 'nota(A2)}'
+# entrada_2 = 'instrumento(violao)'
+# entrada_3 = 'stop()'
+# entrada_4 = 'stop(9)' 
+# entrada_5 = 'isso  ;;   não é uma string'  
+# if __name__ == "__main__":
+#     print(f"Entrada: {entrada_1} -> Aceito? {afd.processar(entrada_1)}")  
+#     print(f"Entrada: {entrada_2} -> Aceito? {afd.processar(entrada_2)}")  
+#     print(f"Entrada: {entrada_3} -> Aceito? {afd.processar(entrada_3)}")  
+#     print(f"Entrada: {entrada_4} -> Aceito? {afd.processar(entrada_4)}")
+#     print(f"Entrada: {entrada_5} -> Aceito? {afd.processar('instrumento();')}")

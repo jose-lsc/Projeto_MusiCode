@@ -1,0 +1,61 @@
+
+Manual para baixar o projeto pelo GitHub
+
+    primeiro deve-se ir em uma pasta e digitar o comando em seu terminal -> 
+    https://github.com/jose-lsc/Projeto_MusiCode.git
+
+    você ira clonar meu projeto de compilador entre no projeto usando o comando -> cd Projeto_MusiCode(ou o nome que tiver no arquivo).
+
+    Após entrar no projeto digite o comando: code .
+    Lembrando que é necessário ter o programa VSCode pré instalado em sua máquina e se possível a versão mais recente da linguagem de programação python.
+
+Manual para uso do compilador MusiCode
+
+    Caso queira eu deixei um arquivo vazio para testes em -> Compilador\Testes\AreaDeTestes.py
+    Como o nosso compilador é um pouco mais simples, é necessário fazer algumas instancias.
+
+    Primeiro passo:
+    ->iniciar a funcao main() do codigo:
+        def main():
+            começo do codigo...
+
+    ->importar as partes necessárias do compilador incluindo: 
+        ->from Compilador.lib.lexer.novo_lexer import Lexer
+        ->from Compilador.lib.parser.parser import Parser
+        ->from Compilador.lib.parser.gerador_LLVM_IR import GeradorLLVM
+    ->criar uma variavel e dentro dela deverá simular o codigo real do musico MusiCode  
+        ->Exemplo:
+            codigo = """
+                play{
+                    instrumento(violao);
+                    nota(A2);
+                    nota(B4);
+                    nota(A2);
+                    nota(B4);
+                    nota(A2);
+                    nota(B4);
+                    stop();
+                }
+                """
+    ->Depois basta criar as instancias chamadas anteriormente e para cada uma utilizar o resultado devolvido para compilar o parser junto
+        lexer = Lexer()
+        retorno = lexer.lexer(variavel com o seu codigo)
+        
+        parser = Parser(retorno)
+        retornoParse = parser.parse()
+        
+        llvm = GeradorLLVM().gerar(retornoParse)
+
+    ->caso queira fazer debugs pode usar funções como print para ver oque se traz em cada parte do compilador
+
+    ->E por último fora da função main() deve marcar a condição para iniciar o programa em python
+        if __name__ == "__main__":
+        main()
+
+    ->Com o codigo pronto você deve rodar o seguinto comando
+        python -m Compilador.path.para.seu.codigo
+
+        IMPORTANTE: esse comando deve ser chamado via terminal na raiz do projeto só assim o programa ira entender corretamente o caminho de pastas dos arquivos
+
+OBS: caso tenha dúvidas existe um arquivo em Compilador\Testes\Exemplo.py onde esta o formato correto para compilar o código
+

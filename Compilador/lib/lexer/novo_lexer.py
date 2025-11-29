@@ -1,4 +1,6 @@
-from afn_to_afd import AFD
+#from  afn_to_afd import AFD
+from Compilador.lib.lexer.afn_to_afd import AFD
+
 
 class Lexer:
     def __init__(self):
@@ -9,6 +11,7 @@ class Lexer:
         return self.afd.processar(token)
 
     def lexer(self, input_text):
+        input_text = input_text.strip()
         resultado = []
         linha = 1
         coluna = 1
@@ -30,21 +33,25 @@ class Lexer:
             if dentro_play:
                 
                 if c == ";":
-                    #ja que houve ponto e virgula para finalizar a logica ele busca o token que foi formado ate então
-                    retornoAFD = self.classificar_token(tokensInternos)
-                    if retornoAFD["status"] == False:
-                        return {
-                            "Erro": f"Token {tokensInternos} Invalido!!!",
-                            "linha" : linha,
-                            "coluna" : coluna - 1,
-                            "token": tokensInternos, 
-                        }
-                    else:
-                        resultado.append(retornoAFD)
+                    if tokensInternos.strip() != "":
+                        retornoAFD = self.classificar_token(tokensInternos)
+                        if retornoAFD["status"] == False:
+                            return {
+                                "Erro": f"Token {tokensInternos} Invalido!!!",
+                                "linha" : linha,
+                                "coluna" : coluna - 1,
+                                "token": tokensInternos, 
+                            }
+                        else:
+                            resultado.append(retornoAFD)
+
+                    tokensInternos = ""  # <<< ESSENCIAL PARA NÃO DUPLICAR
+
                     resultado.append(self.classificar_token(";"))
                     i += 1
                     coluna += 1
                     continue
+
 
                 if c.isspace():
                     if tokensInternos.strip() != "":
@@ -107,7 +114,7 @@ class Lexer:
                     i += 5
                     coluna += 5
                     continue
-
+                
                 return {
                     "Erro": "O código sempre deve começar e finalizar com o bloco play{}\n",
                     "linha" : linha,
@@ -133,17 +140,17 @@ class Lexer:
         # [();{}] -> símbolos
         return tokens
 
-lexer = Lexer()
+# lexer = Lexer()
 
-codigo_teste = """
-play{
-    instrumento(violao);
-    nota(A2);
-    nota(B4);
-    stop();
-}
-"""
+# codigo_teste = """
+# play{
+#     instrumento(violao);
+#     nota(A2);
+#     nota(B4);
+#     stop();
+# }
+# """
 
-retorno = lexer.lexer(codigo_teste)
+# retorno = lexer.lexer(codigo_teste)
 
-print(retorno)
+# print(retorno)
